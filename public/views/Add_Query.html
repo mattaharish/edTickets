@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://blackrockdigital.github.io/startbootstrap-blog-home/# -->
+<html lang="en" class="gr__blackrockdigital_github_io">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Blog Home - Start Bootstrap Template</title>
+
+	<!-- Custom styles for this template -->
+	<link href="./Blog Home - Start Bootstrap Template_files/blog-home.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="card">
+
+			<div style="padding-left: 10px; padding-bottom: 10px; padding-right: 10px;" class="card-block">
+				<form ng-submit="add.addTicket()">
+					<div class="form-group">
+						<label for="exampleInputEmail1">Title</label>
+						<input type="text" class="form-control" ng-model="add.title" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title"
+						  required>
+
+					</div>
+
+					<div class="form-group">
+						<label for="exampleTextarea">Desription</label>
+						<textarea class="form-control" ng-model="add.description" id="exampleTextarea" rows="3" required></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="exampleInputFile">File input</label>
+						<input type="file" ngf-select ng-model="add.file" name="file" ngf-max-size="20MB" class="form-control-file" id="exampleInputFile"
+						  aria-describedby="fileHelp">
+
+							<p>{{add.progress}} </p>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>

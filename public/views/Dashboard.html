@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+
+<div class="container">
+  <button type="button" class="btn btn-info" ng-click="main.all()">All Questions</button>
+  <button type="button" class="btn btn-danger" ng-click="main.open()">Open Questions</button>
+  <button type="button" class="btn btn-success" ng-click="main.close()">Closed Questions</button>
+  <a ng-hide="main.admin" ng-href="#/addTicket" ng-click="main.add()" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span>
+    Add Question
+  </a>
+
+  <br>
+  <br>
+  <br>
+
+  <div class="row">
+
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
+
+      <!-- Blog Post -->
+      <div ng-repeat="ticket in main.tickets | filter:main.status | filter:main.search">
+        <div class="card mb-4">
+
+          <div class="card-body">
+            <p>
+                Ticket ID : <span style="color:green">{{ticket.ticketid}}</span>
+            </p>
+            <a ng-href="#/ticketView/{{ticket.ticketid}}">
+              <h4 class="card-title">{{ticket.title}}</h4>
+            </a>
+            <p class="card-text">{{ticket.description | limitTo:100}}{{ticket.description.length>100?'...':''}}</p>
+
+          </div>
+          <div style="float:right" class="card-footer text-muted">
+            Status : {{ticket.status}}
+          </div>
+          <div class="card-footer text-muted">
+            <span ng-show="main.admin">{{ticket.username}}</span> Posted at {{ticket.created | date:"MMM d, y h:mm a"}}
+          </div>
+        </div>
+        <hr>
+      </div>
+
+    </div>
+
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4">
+
+      <!-- Search Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Search</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="main.search" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!--</body>
+
+</html>-->

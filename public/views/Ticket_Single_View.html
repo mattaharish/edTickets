@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" class="gr__blackrockdigital_github_io">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <title>Ticket View</title>
+
+
+    <!-- Custom styles for this template -->
+    <link href="css/tickets/blog-home.css" rel="stylesheet">
+    <link rel="stylesheets" href="css/main.css">
+
+    <style type="text/css">
+        .chat {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat li {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #B3A9A9;
+        }
+
+        .chat li.left .chat-body {
+            margin-left: 60px;
+        }
+
+        .chat li.right .chat-body {
+            margin-right: 60px;
+        }
+
+
+        .chat li .chat-body p {
+            margin: 0;
+            color: #777777;
+        }
+
+        .panel .slidedown .glyphicon,
+        .chat .glyphicon {
+            margin-right: 5px;
+        }
+
+        .panel-body {
+            overflow-y: scroll;
+            height: 250px;
+        }
+
+         ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+        }
+
+         ::-webkit-scrollbar {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+
+         ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: #555;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <button type="button" class="btn btn-success" ng-click="single.changeStatus(single.ticket.ticketid)">Close</button>
+        <button type="button" class="btn btn-danger" ng-click="single.deleteTicket(single.ticket.ticketid)">Delete</button>
+        <div class="card">
+            <h3 class="card-header">Ticket</h3>
+            <br>
+            <div style="padding-left: 10px; padding-bottom: 10px; padding-right: 10px;" class="card-block">
+                <h4>Title ID:</h4>
+                <h5 class="card-title">{{single.ticket.ticketid}}</h5>
+                <br>
+                <h4>Title :</h4>
+                <h5 class="card-title">{{single.ticket.title}}</h5>
+                <br>
+                <h4>Description :</h4>
+                <p class="card-text">{{single.ticket.description}}</p>
+                <br>
+                <h4>Attachments:</h4>
+                <a href="./user/download/{{single.ticket.filename}}">{{single.ticket.filename}}</a>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on {{single.ticket.created | date:"MMM d, y h:mm a"}}
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="accordion">
+                        <span class="glyphicon glyphicon-comment"></span> Chat
+                        <div class="btn-group pull-right">
+                        </div>
+                    </div>
+                    <div id="collapseOne">
+                        <div class="panel-body">
+                            <ul class="chat">
+                                <div ng-repeat="message in single.ticket.messages">
+                                    <li class="left clearfix">
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <strong class="primary-font">{{message.sender}}</strong>
+                                                <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>{{message.created | date:"MMM d, y h:mm a"}}</small>
+                                            </div>
+                                            <p>
+                                                {{message.message}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <form ng-submit="single.checkAdmin(single.ticket.ticketid)">
+                                <div class="input-group">
+
+                                    <input id="btn-input" type="text" style="height:50px" ng-model="single.message" class="form-control input-sm" placeholder="Type your message here..."
+                                        required/>
+                                    <span class="input-group-btn">
+                                        <button type="submit" style="height:50px" class="btn btn-warning btn-sm" id="btn-chat">
+                                            Send
+                                        </button>
+                                    </span>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

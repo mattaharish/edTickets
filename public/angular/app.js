@@ -1,0 +1,1 @@
+var myApp = angular.module('edTickets', ['ngRoute', 'angular-jwt', 'ngFileUpload']);

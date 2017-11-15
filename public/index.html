@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="edTickets" class=" js no-touch">
+
+<head>
+	<title>edTickets</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--<link href="css/tickets/bootstrap.min.css" rel="stylesheet">-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,600|Raleway:600,300|Josefin+Slab:400,700,600italic,600,400italic'
+	    rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/slick-team-slider.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="css/tickets/blog-home.css">
+	<link rel="stylesheets" href="css/main.css">
+
+</head>
+
+<body >
+<div ng-controller="userCtrl as account">
+	<!--HEADER START-->
+	<div class="main-navigation navbar-fixed-top">
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" ng-href="#/">edTickets</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav navbar-right">
+						
+						<li>
+							<a ng-show="show" ng-href="#/dashboard">Dashboard</a>
+						</li>
+						<li>
+							<a ng-hide="show" href="" data-toggle="modal" data-target="#login-modal">Sign In</a>
+						</li>
+						<li>
+							<a ng-show="show" ng-click="account.logout()" href>Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<!--HEADER END-->
+
+	<!--BANNER START-->
+	<div id="banner" class="section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="jumbotron">
+					<h1 class="small">Welcome To
+						<span class="bold">edTickets</span>
+					</h1>
+					<p class="big">Ticket Based Support system</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--BANNER END-->
+
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+	    style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<img class="img-circle" id="img_logo" src="https://www.edcast.com/corp/wp-content/uploads/2016/03/ed-icon-black-01.png">
+					<button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
+
+				<!-- Begin # DIV Form -->
+				<div id="div-forms">
+
+					<!-- Begin # Login Form -->
+					<form id="login-form" ng-submit="account.login()">
+						<div class="modal-body">
+							<div id="div-login-msg">
+								<div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+								<span id="text-login-msg">{{account.loginMessage}}</span>
+							</div>
+							<input id="login_username" ng-model="account.email" class="form-control" type="text" placeholder="E-mail" required>
+							<input id="login_password" ng-model="account.password" class="form-control" type="password" placeholder="Password" required>
+							<input id="closeValue" type="hidden" value={{account.closeButton}}>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+								<br>
+							</div>
+
+							<div>
+								<button id="login_lost_btn" type="button" class="btn btn-link">Forgot Password?</button>
+								<button id="login_register_btn" type="button" class="btn btn-link">Register</button>
+							</div>
+						</div>
+					</form>
+					<!-- End # Login Form -->
+
+					<!-- Begin | Lost Password Form -->
+					<form id="lost-form" ng-submit="account.lostPassword()" style="display:none;">
+						<div class="modal-body">
+							<div id="div-lost-msg">
+								<div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+								<span id="text-lost-msg">Type your e-mail.</span>
+							</div>
+							<input id="lost_email" ng-model="account.email" class="form-control" type="text" placeholder="E-Mail" required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" id="lost" class="btn btn-primary btn-lg btn-block">Send</button>
+							</div>
+							<div>
+								<button id="lost_login_btn" type="button" class="btn btn-link">Log In</button>
+								<button id="lost_register_btn" type="button" class="btn btn-link">Register</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | Lost Password Form -->
+
+					<!-- Begin | OTP Form -->
+					<form id="otp-form" ng-submit="account.verifyUnique()" style="display:none;">
+						<div class="modal-body">
+							<div id="div-lost-msg">
+								<div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+								<span id="text-lost-msg">{{account.uniqueMessage}}</span>
+							</div>
+							<input id="unique" ng-model="account.otp" class="form-control" type="text" placeholder="Unique String" required>
+							<input type="hidden" id="check" value="{{account.check}}">
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" id="verify" class="btn btn-primary btn-lg btn-block">Verify</button>
+							</div>
+							<div>
+								<button id="otp_login_btn" type="button" class="btn btn-link">Log In</button>
+								<button id="otp_register_btn" type="button" class="btn btn-link">Register</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | OTP Form -->
+
+					<!-- Reset Password -->
+					<form id="new-password-form" ng-submit="account.resetPassword()" style="display:none;">
+						<div class="modal-body">
+							<div id="div-lost-msg">
+								<div id="icon-lost-msg" class="glyphicon glyphicon-chevron-right"></div>
+								<span id="text-lost-msg">{{account.changedPassword}}</span>
+							</div>
+							<input ng-model="account.newPassword" class="form-control" type="password" placeholder="New Password" required>
+							<input ng-model="account.newPassword1" class="form-control" type="password" placeholder="Re-Enter New Password" required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" id="reset" class="btn btn-primary btn-lg btn-block">Reset</button>
+							</div>
+							<div>
+								<button id="reset_login_btn" type="button" class="btn btn-link">Log In</button>
+								<button id="reset_register_btn" type="button" class="btn btn-link">Register</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | Reset Password -->
+
+					<!-- Begin | Register Form -->
+					<form id="register-form" ng-submit=account.register() style="display:none;">
+						<div class="modal-body">
+							<div ng-show="account.error">
+								<div id="div-register-msg" style="background-color:#E57373">
+									<span>{{account.registerMessage}}</span>
+								</div>
+							</div>
+							<div ng-hide="account.error">
+								<div id="div-register-msg" style="background-color:#4CAF50">
+									<span>{{account.registerMessage}}</span>
+								</div>
+							</div>
+							<input id="register_firstname" ng-model="account.firstname" class="form-control" type="text" placeholder="First Name" required>
+							<input id="register_lastname" ng-model="account.lastname" class="form-control" type="text" placeholder="Last Name" required>
+							<input id="register_email" ng-model="account.email" class="form-control" type="text" placeholder="E-Mail" required>
+							<input id="register_mobile" ng-model="account.mobile" class="form-control" type="text" placeholder="Mobile" required>
+							<input id="register_password" ng-model="account.password" class="form-control" type="password" placeholder="Password" required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" id="registerForm" class="btn btn-primary btn-lg btn-block">Register</button>
+								<br>
+								
+							</div>
+							<div>
+								<button id="register_login_btn" type="button" class="btn btn-link">Log In</button>
+								<button id="register_lost_btn" type="button" class="btn btn-link">Forgot Password?</button>
+							</div>
+						</div>
+					</form>
+					<!-- End | Register Form -->
+
+				</div>
+				<!-- End # DIV Form -->
+
+			</div>
+		</div>
+	</div>
+	</div>
+	<br>
+
+	<div ng-view>
+
+	</div>
+
+	<br>
+	<br>
+
+	<div class="footer-bottom">
+			<div class="container">
+				<div style="visibility: visible; animation-name: zoomIn;" class="col-md-12 text-center wow zoomIn">
+					<div class="footer_copyright">
+						<p> © Copyright, All Rights Reserved.</p>					
+						<div class="credits">
+							Designed by <a href="">Harish Matta</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.mixitup.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/slick.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script>
+	<script src="js/angular-jwt.js"></script>
+	<script src="js/ng-file-upload.min.js"></script>
+	<script src="js/ng-file-upload-shim.min.js"></script>
+
+	<script src="angular/app.js"></script>
+	<script src="angular/routes.js"></script>
+
+	<!--Angular Services-->
+	<script src="angular/services/accountService.js"></script>
+	<script src="angular/services/ticketService.js"></script>
+
+	<!--Angular Controllers-->
+	<script src="angular/controllers/userController.js"></script>
+	<script src="angular/controllers/mainController.js"></script>
+	<script src="angular/controllers/singleViewController.js"></script>
+	<script src="angular/controllers/addTicketController.js"></script>
+	
+
+</body>
+
+</html>

@@ -35,7 +35,7 @@ myApp.controller('AddTicket', ['$location', 'TicketService', '$rootScope', 'Uplo
 
     main.upload = function (file) {
         Upload.upload({
-            url: 'http://localhost:8000/user/upload',
+            url: 'http://localhost:3000/user/upload',
             data: {
                 file: file
             }
